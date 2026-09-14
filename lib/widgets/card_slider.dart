@@ -13,23 +13,50 @@ class CardSlider extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return SizedBox(
       width: double.infinity,
-      height: size.height * 0.5,
+      height: size.height * 0.4,
       child: Swiper(
         itemCount: movies.length,
-        layout: SwiperLayout.TINDER,
-        itemWidth: size.width * 0.6,
-        itemHeight: size.height * 0.4,
+        autoplay: true,
+        autoplayDelay: 700000,
+        duration: 1000,
+        viewportFraction: 0.62,
+        loop: true,
         itemBuilder: (_, int index) {
           final movie = movies[index];
           return GestureDetector(
             onTap: () => Navigator.pushNamed(context, 'details', arguments: movie),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: FadeInImage(
-                placeholder: AssetImage('assets/no-image.jpg'),
-                image: NetworkImage(movie.fullPosterImg),
-                fit: BoxFit.cover,
-              ),
+            child: Column(
+              children: [
+                SizedBox(
+                  height: size.height * 0.32,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: FadeInImage(
+                      placeholder: const AssetImage('assets/no-image.jpg'),
+                      image: NetworkImage(movie.fullPosterImg),
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                      key: ValueKey(movie.id),
+                    ),
+                  ),
+                ),
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  color: Colors.white.withOpacity(0.1),
+                  child: Text(
+                    movie.title,
+                    textAlign: TextAlign.center,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
             ),
           );
         },
