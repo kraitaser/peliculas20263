@@ -5,16 +5,13 @@ class CreditsResponse {
   List<Cast> cast;
   List<Cast> crew;
 
-  CreditsResponse({
-    required this.id,
-    required this.cast,
-    required this.crew,
-  });
-   
+  CreditsResponse({required this.id, required this.cast, required this.crew});
+
   factory CreditsResponse.fromRawJson(String str) =>
       CreditsResponse.fromJson(json.decode(str));
 
-  factory CreditsResponse.fromJson(Map<String, dynamic> json) => CreditsResponse(
+  factory CreditsResponse.fromJson(Map<String, dynamic> json) =>
+      CreditsResponse(
         id: json['id'],
         cast: List<Cast>.from(json['cast'].map((x) => Cast.fromJson(x))),
         crew: List<Cast>.from(json['crew'].map((x) => Cast.fromJson(x))),
@@ -54,9 +51,9 @@ class Cast {
     this.job,
   });
 
-  get fulProfilePath{
-    if(this.profilePath!=null){
-      return 'https://image.tmdb.org/t/p/w500${this.profilePath}';
+  String get fulProfilePath {
+    if (profilePath != null) {
+      return 'https://image.tmdb.org/t/p/w500$profilePath';
     }
     return 'https://i.stack.imgur.com/GNhxO.png';
   }
@@ -67,14 +64,14 @@ class Cast {
     adult: json['adult'],
     gender: json['gender'],
     id: json['id'],
-    knownForDepartment: json['knownForDepartment'],
+    knownForDepartment: json['known_for_department'],
     name: json['name'],
-    originalName: json['originalName'],
+    originalName: json['original_name'],
     popularity: json['popularity']?.toDouble(),
-    profilePath: json['profilePath'],
-    castId: json['castId'],
+    profilePath: json['profile_path'],
+    castId: json['cast_id'],
     character: json['character'],
-    creditId: json['creditId'],
+    creditId: json['credit_id'],
     order: json['order'],
     department: json['department'],
     job: json['job'],
